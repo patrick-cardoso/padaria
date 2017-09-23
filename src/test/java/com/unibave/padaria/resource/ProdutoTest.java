@@ -56,16 +56,16 @@ public class ProdutoTest {
 
         produtoTemp.setDescricao("Descrição Teste atualizado");
 
-        ResponseEntity<String> response = restTemplate
+        ResponseEntity<Produto> response = restTemplate
                 .exchange(BASE_URI+"/"+produtoTemp.getId(),
                         HttpMethod.PUT,
                         new HttpEntity<>(produtoTemp),
-                        String.class);
+                        Produto.class);
 
         //System.out.print(response.getBody());
-       //Produto produto = response.getBody();
-        //assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        //assertThat(produtoTemp.getDescricao()).isEqualTo(produto.getDescricao());
+       Produto produto = response.getBody();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(produtoTemp.getDescricao()).isEqualTo(produto.getDescricao());
 
     }
 
