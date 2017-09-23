@@ -36,6 +36,7 @@ public class EstabelecimentoHappyTest {
 
     @Test
     public void _01_adicionaEstabelecimento(){
+
         Estabelecimento estabelecimento = new Estabelecimento();
 
         estabelecimento.setNome("Teste Automatizado");
@@ -54,6 +55,7 @@ public class EstabelecimentoHappyTest {
     @Test
     public void _02_atualizaEstabelecimento(){
 
+
         estabelecimentoTemp.setEndereco("Rua Teste Automatizado Atualizado");
         ResponseEntity<Estabelecimento> response = restTemplate
                 .exchange(BASE_URI+"/"+estabelecimentoTemp.getId(),
@@ -61,24 +63,27 @@ public class EstabelecimentoHappyTest {
                         new HttpEntity<>(estabelecimentoTemp),
                         Estabelecimento.class);
 
+        Estabelecimento estabelecimento = response.getBody();
+
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-
-
+        assertThat(estabelecimentoTemp.getNome()).isEqualTo(estabelecimento.getNome());
+        assertThat(estabelecimentoTemp.getEndereco()).isEqualTo(estabelecimento.getEndereco());
     }
 
+
+
+
+
     @Test
-    public void _03_buscaEstabelecimento(){
+    public void _04_deletaEstabelecimento(){
 
         ResponseEntity<Estabelecimento> response = restTemplate
                 .exchange(BASE_URI+"/"+estabelecimentoTemp.getId(),
-                        HttpMethod.GET,
+                        HttpMethod.DELETE,
                         null,
                         Estabelecimento.class);
 
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
 
-        Estabelecimento busca = response.getBody();
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(estabelecimentoTemp.getNome()).isEqualTo(busca.getNome());
-        assertThat(estabelecimentoTemp.getEndereco()).isEqualTo(busca.getEndereco());
     }
 }

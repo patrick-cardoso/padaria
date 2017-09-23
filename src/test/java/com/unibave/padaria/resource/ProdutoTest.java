@@ -1,28 +1,86 @@
 package com.unibave.padaria.resource;
 
 
+import com.sun.deploy.net.HttpResponse;
 import com.unibave.padaria.model.Produto;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import javax.inject.Inject;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment
         = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class ProdutoTests {
+public class ProdutoTest {
+
+    @Inject
+    private TestRestTemplate restTemplate;
 
 
-    private Produto produto;
+    private static Produto produtoTemp;
+
+
+    private static final String BASE_URI = "/api/produtos";
 
     @Test
-    public void Teste(){
+    public void _01_adicionaProduto(){
+        Produto produto = new Produto();
+
+        produto.setDescricao("Descrição Teste");
+
+        ResponseEntity<Produto> response = restTemplate
+                .postForEntity(BASE_URI, produto, Produto.class);
+
+
+        produtoTemp = response.getBody();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(produtoTemp.getDescricao()).isEqualTo(produto.getDescricao());
+    }
+
+    @Test
+    public void _02_atualizaProduto(){
+
+        produtoTemp.setDescricao("Descrição Teste atualizado");
+
+        ResponseEntity<String> response = restTemplate
+                .exchange(BASE_URI+"/"+produtoTemp.getId(),
+                        HttpMethod.PUT,
+                        new HttpEntity<>(produtoTemp),
+                        String.class);
+
+        System.out.print(response.getBody());
+       //Produto produto = response.getBody();
+        //assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        //assertThat(produtoTemp.getDescricao()).isEqualTo(produto.getDescricao());
 
     }
 
+
+
+    @Test
+    public void _04_deletaProduto(){
+
+        ResponseEntity<Produto> response = restTemplate
+                .exchange(BASE_URI+"/"+produtoTemp.getId(),
+                        HttpMethod.DELETE,
+                        null,
+                        Produto.class);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
+
+    }
 }
