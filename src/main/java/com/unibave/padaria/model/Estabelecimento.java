@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -38,7 +39,7 @@ public class Estabelecimento {
                 @JoinColumn(name = "produto_id")})
     private List<Produto> produtos = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "estabelecimento")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "estabelecimento",fetch = FetchType.EAGER)
     private List<ProdutoDisponivel> produtosDisponivels = new ArrayList<>();
 
     public String getEndereco() {
