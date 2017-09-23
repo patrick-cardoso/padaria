@@ -1,8 +1,9 @@
-package com.unibave.padaria.padaria;
+package com.unibave.padaria.resource;
 
 
 import com.unibave.padaria.model.Produto;
 import org.junit.FixMethodOrder;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,5 +20,9 @@ public class ProdutoTests {
 
     private Produto produto;
 
+    @Test
+    public void Teste(){
+
+    }
 
 }

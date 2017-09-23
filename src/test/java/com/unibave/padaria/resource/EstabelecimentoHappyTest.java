@@ -1,4 +1,4 @@
-package com.unibave.padaria.padaria;
+package com.unibave.padaria.resource;
 
 
 import com.unibave.padaria.model.Estabelecimento;
@@ -22,14 +22,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment
         = SpringBootTest.WebEnvironment.RANDOM_PORT)
+
 @ActiveProfiles("test")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class EstabelecimentoHappyTests {
+public class EstabelecimentoHappyTest {
 
     @Inject
     private TestRestTemplate restTemplate;
-
-
 
     private static Estabelecimento estabelecimentoTemp;
 
