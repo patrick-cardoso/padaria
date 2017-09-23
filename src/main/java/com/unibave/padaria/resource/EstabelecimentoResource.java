@@ -33,7 +33,7 @@ public interface EstabelecimentoResource {
         @ApiResponse(code = 200, message = "Estabelecimento adicionado com sucesso", response = Estabelecimento.class)
     })
     @POST
-    Response adiciona(@Valid final Estabelecimento aluno);
+    Response adiciona(@Valid final Estabelecimento estabelecimento);
 
     @ApiOperation(value = "Atualiza estabelecimento")
     @ApiResponses(value = {
