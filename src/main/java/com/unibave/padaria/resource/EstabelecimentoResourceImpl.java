@@ -51,7 +51,7 @@ public class EstabelecimentoResourceImpl implements EstabelecimentoResource {
     public Response buscaProdutos(Long id) {
         Estabelecimento estabelecimento = service.busca(id)
                 .orElseThrow(() -> new NotFoundException());
-        return Response.ok(new EstabelecimentoDTO(estabelecimento).getProdutos()).build();
+        return Response.ok(estabelecimento.getProdutos()).build();
     }
 
     @Override
