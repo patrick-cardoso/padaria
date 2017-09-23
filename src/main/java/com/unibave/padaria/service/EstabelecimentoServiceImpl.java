@@ -31,8 +31,11 @@ public class EstabelecimentoServiceImpl implements EstabelecimentoService {
     }
 
     @Override
+    @Transactional
     public Optional<Estabelecimento> busca(Long codigo) {
-        return Optional.ofNullable(repository.findOne(codigo));
+        Optional<Estabelecimento> estabelecimento = Optional.ofNullable(repository.findOne(codigo));
+        estabelecimento.get().getProdutosDisponiveis().size();
+        return estabelecimento;
     }
 
     @Override
@@ -42,10 +45,15 @@ public class EstabelecimentoServiceImpl implements EstabelecimentoService {
     }
 
     @Override
+    @Transactional
     public Page<Estabelecimento> lista(Pageable pageable, String nome) {
-        return nome != null
+        Page<Estabelecimento> lista = nome != null
                 ? repository.findByNomeContaining(pageable, nome)
                 : repository.findAll(pageable);
+        if (lista.hasContent()) {
+            lista.iterator().next().getProdutosDisponiveis().size();
+        }
+        return lista;
     }
 
 }

@@ -16,7 +16,7 @@ public class EstabelecimentoDTO {
 
     private String endereco;
 
-    private List<Produto> produtos = new ArrayList<>();
+    //private List<Produto> produtos = new ArrayList<>();
 
     private List<ProdutoDisponivel> produtosDisponiveis = new ArrayList<>();
 
@@ -30,7 +30,7 @@ public class EstabelecimentoDTO {
         this.id = estabelecimento.getId();
         this.nome = estabelecimento.getNome();
         this.endereco = estabelecimento.getEndereco();
-        this.produtos = estabelecimento.getProdutos();
+       // this.produtos = estabelecimento.getProdutos();
         this.produtosDisponiveis = estabelecimento.getProdutosDisponiveis();
     }
 }
