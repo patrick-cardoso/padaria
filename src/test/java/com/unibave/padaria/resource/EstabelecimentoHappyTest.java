@@ -2,12 +2,14 @@ package com.unibave.padaria.resource;
 
 
 import com.unibave.padaria.model.Estabelecimento;
+import com.unibave.padaria.model.Produto;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -16,6 +18,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.inject.Inject;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -86,9 +90,62 @@ public class EstabelecimentoHappyTest {
     }
 
 
+    @Test
+    public void _04_buscaEstabelecimentos(){
+
+        ResponseEntity<PageDTO<Estabelecimento>> response = restTemplate
+                .exchange(BASE_URI,
+                        HttpMethod.GET, null, getPageTypeReference());
+        assertThat(response.getStatusCode())
+                .isEqualTo(HttpStatus.OK);
+        PageDTO<Estabelecimento> estabelecimentos = response.getBody();
+        assertThat(estabelecimentos.getTotalElements()).isEqualTo(1);
+        assertThat(estabelecimentos.getContent().size()).isEqualTo(1);
+
+    }
+
+//    @Test
+//    public void _05_adicionaProduto(){
+//
+//        Produto produto = new Produto();
+//        produto.setDescricao("Descrição Teste");
+//        ResponseEntity<Produto> prodAdd = restTemplate
+//                .postForEntity(BASE_URI, produto, Produto.class);
+//        Produto produtoTemp = prodAdd.getBody();
+//
+//
+//
+//        estabelecimentoTemp.addProduto(produtoTemp);
+//        estabelecimentoTemp.setNome("Teste2");
+//        System.out.print(estabelecimentoTemp);
+//
+//
+//
+//        ResponseEntity<Estabelecimento> estabTemp = restTemplate
+//                .exchange(BASE_URI+"/"+estabelecimentoTemp.getId(),
+//                        HttpMethod.PUT,
+//                        new HttpEntity<>(estabelecimentoTemp),
+//                        Estabelecimento.class);
+//
+//        assertThat(estabTemp.getStatusCode()).isEqualTo(HttpStatus.OK);
+//
+//        ResponseEntity<PageDTO<Produto>> response = restTemplate
+//                .exchange(BASE_URI+"/"+estabelecimentoTemp.getId()+"/produtos",
+//                        HttpMethod.GET,
+//                        null,
+//                        getPageTypeReferenceProd());
+//
+//
+//        PageDTO<Produto> produtos = response.getBody();
+//
+//
+//        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+//        assertThat(estabelecimentoTemp.getProdutos()).isEqualTo(produtos);
+//
+//    }
 
     @Test
-    public void _04_deletaEstabelecimento(){
+    public void _06_deletaEstabelecimento(){
 
         ResponseEntity<Estabelecimento> response = restTemplate
                 .exchange(BASE_URI+"/"+estabelecimentoTemp.getId(),
@@ -98,5 +155,20 @@ public class EstabelecimentoHappyTest {
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
 
+    }
+
+
+    private ParameterizedTypeReference<PageDTO<Estabelecimento>>
+    getPageTypeReference() {
+        return new ParameterizedTypeReference<PageDTO<Estabelecimento>>() {
+        };
+    }
+
+
+
+    private ParameterizedTypeReference<PageDTO<Produto>>
+    getPageTypeReferenceProd() {
+        return new ParameterizedTypeReference<PageDTO<Produto>>() {
+        };
     }
 }

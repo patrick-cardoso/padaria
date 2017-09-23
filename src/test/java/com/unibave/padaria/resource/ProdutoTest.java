@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -84,9 +85,23 @@ public class ProdutoTest {
 
     }
 
+    @Test
+    public void _04_buscaProdutos(){
+
+        ResponseEntity<PageDTO<Produto>> response = restTemplate
+                .exchange(BASE_URI,
+                        HttpMethod.GET, null, getPageTypeReference());
+        assertThat(response.getStatusCode())
+                .isEqualTo(HttpStatus.OK);
+        PageDTO<Produto> produtos = response.getBody();
+        assertThat(produtos.getTotalElements()).isEqualTo(1);
+        assertThat(produtos.getContent().size()).isEqualTo(1);
+
+    }
+
 
     @Test
-    public void _04_deletaProduto(){
+    public void _05_deletaProduto(){
 
         ResponseEntity<Produto> response = restTemplate
                 .exchange(BASE_URI+"/"+produtoTemp.getId(),
@@ -96,5 +111,13 @@ public class ProdutoTest {
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
 
+    }
+
+
+
+    private ParameterizedTypeReference<PageDTO<Produto>>
+    getPageTypeReference() {
+        return new ParameterizedTypeReference<PageDTO<Produto>>() {
+        };
     }
 }
