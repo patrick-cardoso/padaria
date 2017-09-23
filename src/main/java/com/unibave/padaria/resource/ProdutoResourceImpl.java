@@ -38,7 +38,7 @@ public class ProdutoResourceImpl implements ProdutoResource {
     public Response busca(Long id) {
         Produto produto = service.busca(id)
                 .orElseThrow(() -> new NotFoundException());
-        return Response.ok(new ProdutoDTO(produto)).build();
+        return Response.ok(produto).build();
     }
 
     @Override
