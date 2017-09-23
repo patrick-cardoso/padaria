@@ -8,6 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Produto {
@@ -17,6 +18,7 @@ public class Produto {
     private Long id;
 
     @Column
+    @NotNull
     private String descricao;
 
     @ManyToMany(mappedBy = "produtos",fetch = FetchType.EAGER)

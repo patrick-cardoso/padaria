@@ -15,6 +15,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @NamedQueries(
@@ -26,9 +27,11 @@ public class Estabelecimento {
     private Long id;
 
     @Column
+    @NotNull
     private String nome;
 
     @Column
+    @NotNull
     private String endereco;
     
     @ManyToMany(fetch = FetchType.EAGER)
