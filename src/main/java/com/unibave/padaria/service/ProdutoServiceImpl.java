@@ -43,9 +43,10 @@ public class ProdutoServiceImpl implements ProdutoService {
 
     @Override
     public Page<Produto> lista(Pageable pageable, String descricao) {
-        return descricao != null
+        Page<Produto> lista = descricao != null
                 ? repository.findByDescricaoContaining(pageable, descricao)
                 : repository.findAll(pageable);
+        return lista;
     }
 
 }
