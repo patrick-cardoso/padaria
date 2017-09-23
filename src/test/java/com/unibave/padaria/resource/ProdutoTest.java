@@ -1,7 +1,7 @@
 package com.unibave.padaria.resource;
 
 
-import com.sun.deploy.net.HttpResponse;
+
 import com.unibave.padaria.model.Produto;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -62,13 +62,27 @@ public class ProdutoTest {
                         new HttpEntity<>(produtoTemp),
                         String.class);
 
-        System.out.print(response.getBody());
+        //System.out.print(response.getBody());
        //Produto produto = response.getBody();
         //assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         //assertThat(produtoTemp.getDescricao()).isEqualTo(produto.getDescricao());
 
     }
 
+    @Test
+    public void _03_buscaProduto(){
+
+        ResponseEntity<Produto> response = restTemplate
+                .exchange(BASE_URI+"/"+produtoTemp.getId(),
+                        HttpMethod.GET,
+                        null,
+                        Produto.class);
+
+        Produto produto = response.getBody();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(produtoTemp.getDescricao()).isEqualTo(produto.getDescricao());
+
+    }
 
 
     @Test

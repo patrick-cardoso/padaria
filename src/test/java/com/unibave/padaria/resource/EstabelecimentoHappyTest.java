@@ -70,7 +70,20 @@ public class EstabelecimentoHappyTest {
         assertThat(estabelecimentoTemp.getEndereco()).isEqualTo(estabelecimento.getEndereco());
     }
 
+    @Test
+    public void _03_buscaEstabelecimento(){
 
+        ResponseEntity<Estabelecimento> response = restTemplate
+                .exchange(BASE_URI+"/"+estabelecimentoTemp.getId(),
+                        HttpMethod.GET,
+                        null,
+                        Estabelecimento.class);
+        Estabelecimento estabelecimento = response.getBody();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(estabelecimentoTemp.getEndereco()).isEqualTo(estabelecimento.getEndereco());
+        assertThat(estabelecimentoTemp.getNome()).isEqualTo(estabelecimento.getNome());
+
+    }
 
 
 
