@@ -46,4 +46,18 @@ public class EstabelecimentoResourceImpl implements EstabelecimentoResource {
                 Sort.Direction.fromString(direction), sort);
         return Response.ok(service.lista(pageagle, nome)).build();
     }
+
+    @Override
+    public Response buscaProdutos(Long id) {
+        Estabelecimento estabelecimento = service.busca(id)
+                .orElseThrow(() -> new NotFoundException());
+        return Response.ok(new EstabelecimentoDTO(estabelecimento).getProdutos()).build();
+    }
+
+    @Override
+    public Response buscaProdutosDisponiveis(Long id) {
+        Estabelecimento estabelecimento = service.busca(id)
+                .orElseThrow(() -> new NotFoundException());
+        return Response.ok(new EstabelecimentoDTO(estabelecimento).getProdutosDisponiveis()).build();
+    }
 }

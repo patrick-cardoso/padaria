@@ -1,6 +1,7 @@
 package com.unibave.padaria.config;
 
 import com.unibave.padaria.resource.EstabelecimentoResourceImpl;
+import com.unibave.padaria.resource.ProdutoResourceImpl;
 import io.swagger.jaxrs.config.BeanConfig;
 import io.swagger.jaxrs.listing.ApiListingResource;
 import javax.ws.rs.ApplicationPath;
@@ -18,6 +19,7 @@ public class JerseyConfig extends ResourceConfig {
         register(WebApplicationExceptionMapper.class);
         register(ApiListingResource.class);
         register(EstabelecimentoResourceImpl.class);
+        register(ProdutoResourceImpl.class);
     }
 
     @Bean

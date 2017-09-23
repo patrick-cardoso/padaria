@@ -1,6 +1,6 @@
 package com.unibave.padaria.resource;
 
-import com.unibave.padaria.model.Estabelecimento;
+import com.unibave.padaria.model.Produto;
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -15,17 +15,17 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Path("/estabelecimentos")
+@Path("/produtos")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public interface EstabelecimentoResource {
+public interface ProdutoResource {
 
     @POST
-    Response adiciona(@Valid final Estabelecimento aluno);
+    Response adiciona(@Valid final Produto produto);
 
     @PUT
     @Path(value = "{id}")
-    Response atualiza(@PathParam(value = "id") final Long id, @Valid final Estabelecimento estabelecimeto);
+    Response atualiza(@PathParam(value = "id") final Long id, @Valid final Produto produto);
 
     @DELETE
     @Path(value = "{id}")
@@ -41,13 +41,5 @@ public interface EstabelecimentoResource {
             @QueryParam(value = "limit") @DefaultValue("10") final int limit,
             @QueryParam(value = "sort") @DefaultValue("id") final String sort,
             @QueryParam(value = "direction") @DefaultValue("asc") final String direction);
-
-    @GET
-    @Path(value = "{codigo}/produtos")
-    Response buscaProdutos(@PathParam(value = "id") final Long id);
-
-    @GET
-    @Path(value = "{codigo}/produtos-disponiveis")
-    Response buscaProdutosDisponiveis(@PathParam(value = "id") final Long id);
 
 }
