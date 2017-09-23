@@ -31,7 +31,7 @@ public class Estabelecimento {
     @Column
     private String endereco;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(name = "estabelecimento_has_produtos", joinColumns
             = {
                 @JoinColumn(name = "estabelecimento_id")}, inverseJoinColumns
