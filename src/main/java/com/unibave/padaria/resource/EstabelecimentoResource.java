@@ -28,14 +28,14 @@ public interface EstabelecimentoResource {
 
     @ApiOperation(value = "Adiciona estabelecimento")
     @ApiResponses(value = {
-        @ApiResponse(code = 200, message = "Produtor adicionado com sucesso", response = Produtor.class)
+        @ApiResponse(code = 200, message = "Produtor adicionado com sucesso", response = Estabelecimento.class)
     })
     @POST
     Response adiciona(@Valid final Estabelecimento aluno);
 
     @ApiOperation(value = "Atualiza estabelecimento")
     @ApiResponses(value = {
-        @ApiResponse(code = 200, message = "Estabelecimento atualizado com sucesso", response = Produtor.class)
+        @ApiResponse(code = 200, message = "Estabelecimento atualizado com sucesso", response = Estabelecimento.class)
         ,
         @ApiResponse(code = 404, message = "Estabelecimento não encontrado")
     })
@@ -55,7 +55,7 @@ public interface EstabelecimentoResource {
 
     @ApiOperation(value = "Busca estabelecimento")
     @ApiResponses(value = {
-        @ApiResponse(code = 200, message = "Estabelec retornado com sucesso", response = Produtor.class)
+        @ApiResponse(code = 200, message = "Estabelec retornado com sucesso", response = Estabelecimento.class)
         ,
         @ApiResponse(code = 404, message = "Produtor não encontrado")
     })
