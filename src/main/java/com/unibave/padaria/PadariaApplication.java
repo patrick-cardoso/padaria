@@ -9,4 +9,6 @@ public class PadariaApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(PadariaApplication.class, args);
 	}
+
+	//Teste de alteração no branch feature/novo-componente
 }
